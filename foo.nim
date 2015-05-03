@@ -10,7 +10,7 @@ type
   ValueObj = object
     case kind: ValueKind
     of kString:
-      v: string
+      vString: string
     of kHash:
       vHash: Table[string, Value]
     of kArray:
@@ -23,7 +23,7 @@ proc `$`(v: Value): string =
   of kNil:
     "kNil"
   of kString:
-    "kString"
+    v.vString
   of kHash:
     var s = "kHash"
     for k, vsub in v.vHash:
@@ -31,5 +31,8 @@ proc `$`(v: Value): string =
     s
   of kArray:
     "kArray"
-var x = Value(kind: kHash, vHash: initTable[string, Value]())
+var h = initTable[string, Value]()
+h["foo"] = Value(vString: "bar")
+h["lang"] = Value(vString: "nim")
+var x = Value(kind: kHash, vHash: h)
 echo($x)
