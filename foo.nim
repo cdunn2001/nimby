@@ -1,6 +1,7 @@
 echo "Hello World"
 
 import macros
+import tables
 
 type
   ValueKind = enum
@@ -11,7 +12,7 @@ type
     of kString:
       v: string
     of kHash:
-      vHash: string
+      vHash: Table[string, Value]
     of kArray:
       vArray: seq[Value]
     of kNil:
@@ -24,8 +25,11 @@ proc `$`(v: Value): string =
   of kString:
     "kString"
   of kHash:
-    "kHash"
+    var s = "kHash"
+    for k, vsub in v.vHash:
+        s = s & "," & $k & "=" & $vsub
+    s
   of kArray:
     "kArray"
-var x = Value(v: nil)
+var x = Value(kind: kHash, vHash: initTable[string, Value]())
 echo($x)
