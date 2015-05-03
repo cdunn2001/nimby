@@ -13,11 +13,19 @@ type
     of kHash:
       vHash: string
     of kArray:
-      vArray: string
+      vArray: seq[Value]
     of kNil:
       nil
 
 proc `$`(v: Value): string =
-  "foo"
+  case v.kind:
+  of kNil:
+    "kNil"
+  of kString:
+    "kString"
+  of kHash:
+    "kHash"
+  of kArray:
+    "kArray"
 var x = Value(v: nil)
 echo($x)
