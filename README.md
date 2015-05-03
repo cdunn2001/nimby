@@ -1,0 +1,2 @@
+# nimby
+for sharing
