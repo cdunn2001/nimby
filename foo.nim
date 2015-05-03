@@ -30,9 +30,14 @@ proc `$`(v: Value): string =
         s = s & "," & $k & "=" & $vsub
     s
   of kArray:
-    "kArray"
+    var s = "kArray"
+    for vsub in v.vArray:
+        s = s & "," & $vsub
+    s
+var l = @[Value(vString: "value1"), Value(vString: "value2")]
 var h = initTable[string, Value]()
 h["foo"] = Value(vString: "bar")
 h["lang"] = Value(vString: "nim")
+h["values"] = Value(kind: kArray, vArray: l)
 var x = Value(kind: kHash, vHash: h)
 echo($x)
