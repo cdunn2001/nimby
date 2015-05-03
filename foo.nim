@@ -10,4 +10,4 @@ type
 proc `$`(v: Value): string =
   "foo"
 var x = Value(v: nil)
-echo `$`(x)
+echo($x)
