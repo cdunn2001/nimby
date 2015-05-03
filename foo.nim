@@ -1,3 +1,5 @@
+# vim: set et sw=2 ts=2:
+
 echo "Hello World"
 
 import macros
@@ -18,26 +20,30 @@ type
     of kNil:
       nil
 
-proc `$`(v: Value): string =
+proc toStr(v: Value, indent: string = ""): string =
   case v.kind:
   of kNil:
-    "kNil"
+    indent & "kNil"
   of kString:
-    v.vString
+    indent & v.vString & "\n"
   of kHash:
-    var s = "kHash"
+    var s = indent & "kHash\n"
     for k, vsub in v.vHash:
-        s = s & "," & $k & "=" & $vsub
+      s = s & indent & " " & k & ":" & "\n" & toStr(vsub, indent & "  ")
     s
   of kArray:
-    var s = "kArray"
+    var s = indent & "kArray\n"
     for vsub in v.vArray:
-        s = s & "," & $vsub
+      s = s & toStr(vsub, indent & " ")
     s
-var l = @[Value(vString: "value1"), Value(vString: "value2")]
-var h = initTable[string, Value]()
-h["foo"] = Value(vString: "bar")
-h["lang"] = Value(vString: "nim")
-h["values"] = Value(kind: kArray, vArray: l)
-var x = Value(kind: kHash, vHash: h)
+
+proc `$`(v: Value): string =
+  toStr(v, "")
+
+var list = @[Value(vString: "value1"), Value(vString: "value2")]
+var hash = initTable[string, Value]()
+hash["foo"] = Value(vString: "bar")
+hash["lang"] = Value(vString: "nim")
+hash["values"] = Value(kind: kArray, vArray: list)
+var x = Value(kind: kHash, vHash: hash)
 echo($x)
