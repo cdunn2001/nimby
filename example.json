@@ -1,0 +1,20 @@
+{
+    // comment
+    "foo": 
+    // comment
+    [
+        1,
+        "bar",
+        // comment on pi
+        3.1415926,
+        // comment on [1,2,3]
+        [1,2,3],
+    ],
+    // does this comment belong to the key or the value? A: value
+    "key2": 45
+    "capitals": {
+        "Texas": "Austin",
+        "Washington": "Olympia",
+        "Colorado": "Denver",
+    },
+}
