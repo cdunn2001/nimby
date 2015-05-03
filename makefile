@@ -1,4 +1,4 @@
-NIM?=/home/cdunn2001/repo/gh/Nim/bin/nim
+NIM?=nim
 
 run: foo.exe
 	./foo.exe
